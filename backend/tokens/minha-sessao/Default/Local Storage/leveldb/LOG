@@ -1,0 +1,51 @@
+2025/05/31-11:23:43.980 4a08 Reusing MANIFEST C:\Users\User\OneDrive\Área de Trabalho\Proletos\whatsapp-api\backend\tokens\minha-sessao\Default\Local Storage\leveldb/MANIFEST-000001
+2025/05/31-11:23:43.985 4a08 Recovering log #77
+2025/05/31-11:23:43.989 4a08 Reusing old log C:\Users\User\OneDrive\Área de Trabalho\Proletos\whatsapp-api\backend\tokens\minha-sessao\Default\Local Storage\leveldb/000077.log 
+2025/05/31-11:52:44.517 210c Level-0 table #82: started
+2025/05/31-11:52:44.529 210c Level-0 table #82: 14347 bytes OK
+2025/05/31-11:52:44.531 210c Delete type=0 #77
+2025/05/31-12:57:44.523 210c Level-0 table #84: started
+2025/05/31-12:57:44.533 210c Level-0 table #84: 12182 bytes OK
+2025/05/31-12:57:44.535 210c Delete type=0 #81
+2025/05/31-14:08:44.516 210c Level-0 table #86: started
+2025/05/31-14:08:44.526 210c Level-0 table #86: 12572 bytes OK
+2025/05/31-14:08:44.531 210c Delete type=0 #83
+2025/05/31-15:18:44.528 210c Level-0 table #88: started
+2025/05/31-15:18:44.535 210c Level-0 table #88: 13182 bytes OK
+2025/05/31-15:18:44.540 210c Delete type=0 #85
+2025/05/31-15:18:44.541 210c Compacting 4@0 + 1@1 files
+2025/05/31-15:18:44.548 210c Generated table #89@0: 207 keys, 12823 bytes
+2025/05/31-15:18:44.548 210c Compacted 4@0 + 1@1 files => 12823 bytes
+2025/05/31-15:18:44.553 210c compacted to: files[ 0 1 1 0 0 0 0 ]
+2025/05/31-15:18:44.553 210c Delete type=2 #79
+2025/05/31-15:18:44.553 210c Delete type=2 #82
+2025/05/31-15:18:44.553 210c Delete type=2 #84
+2025/05/31-15:18:44.553 210c Delete type=2 #86
+2025/05/31-15:18:44.553 210c Delete type=2 #88
+2025/05/31-16:29:44.516 210c Level-0 table #91: started
+2025/05/31-16:29:44.523 210c Level-0 table #91: 13339 bytes OK
+2025/05/31-16:29:44.529 210c Delete type=0 #87
+2025/05/31-17:38:44.525 210c Level-0 table #93: started
+2025/05/31-17:38:44.530 210c Level-0 table #93: 13147 bytes OK
+2025/05/31-17:38:44.531 210c Delete type=0 #90
+2025/05/31-18:48:44.525 210c Level-0 table #95: started
+2025/05/31-18:48:44.569 210c Level-0 table #95: 13106 bytes OK
+2025/05/31-18:48:44.574 210c Delete type=0 #92
+2025/05/31-20:05:44.515 210c Level-0 table #97: started
+2025/05/31-20:05:44.521 210c Level-0 table #97: 13172 bytes OK
+2025/05/31-20:05:44.526 210c Delete type=0 #94
+2025/05/31-20:05:44.526 210c Compacting 4@0 + 1@1 files
+2025/05/31-20:05:44.534 210c Generated table #98@0: 207 keys, 13447 bytes
+2025/05/31-20:05:44.534 210c Compacted 4@0 + 1@1 files => 13447 bytes
+2025/05/31-20:05:44.538 210c compacted to: files[ 0 1 1 0 0 0 0 ]
+2025/05/31-20:05:44.539 210c Delete type=2 #89
+2025/05/31-20:05:44.539 210c Delete type=2 #91
+2025/05/31-20:05:44.539 210c Delete type=2 #93
+2025/05/31-20:05:44.539 210c Delete type=2 #95
+2025/05/31-20:05:44.539 210c Delete type=2 #97
+2025/05/31-21:14:44.528 210c Level-0 table #100: started
+2025/05/31-21:14:44.639 210c Level-0 table #100: 12912 bytes OK
+2025/05/31-21:14:44.649 210c Delete type=0 #96
+2025/05/31-22:28:44.525 210c Level-0 table #102: started
+2025/05/31-22:28:44.531 210c Level-0 table #102: 13073 bytes OK
+2025/05/31-22:28:44.536 210c Delete type=0 #99

@@ -1,0 +1,30 @@
+2025/05/27-10:03:27.565 2d5c Reusing MANIFEST C:\Users\User\OneDrive\Área de Trabalho\Proletos\whatsapp-api\tokens\minha-sessao\Default\Local Storage\leveldb/MANIFEST-000001
+2025/05/27-10:03:27.569 2d5c Recovering log #3
+2025/05/27-10:03:27.572 2d5c Reusing old log C:\Users\User\OneDrive\Área de Trabalho\Proletos\whatsapp-api\tokens\minha-sessao\Default\Local Storage\leveldb/000003.log 
+2025/05/27-10:28:28.048 5c08 Level-0 table #5: started
+2025/05/27-10:28:28.053 5c08 Level-0 table #5: 18265 bytes OK
+2025/05/27-10:28:28.055 5c08 Delete type=0 #3
+2025/05/27-11:34:28.047 5c08 Level-0 table #7: started
+2025/05/27-11:34:28.059 5c08 Level-0 table #7: 12468 bytes OK
+2025/05/27-11:34:28.061 5c08 Delete type=0 #4
+2025/05/27-12:47:28.048 5c08 Level-0 table #9: started
+2025/05/27-12:47:28.068 5c08 Level-0 table #9: 12840 bytes OK
+2025/05/27-12:47:28.071 5c08 Delete type=0 #6
+2025/05/27-13:48:28.051 5c08 Level-0 table #11: started
+2025/05/27-13:48:28.057 5c08 Level-0 table #11: 13781 bytes OK
+2025/05/27-13:48:28.059 5c08 Delete type=0 #8
+2025/05/27-14:59:28.046 5c08 Level-0 table #13: started
+2025/05/27-14:59:28.053 5c08 Level-0 table #13: 13239 bytes OK
+2025/05/27-14:59:28.063 5c08 Delete type=0 #10
+2025/05/27-16:08:28.053 5c08 Level-0 table #15: started
+2025/05/27-16:08:28.063 5c08 Level-0 table #15: 12949 bytes OK
+2025/05/27-16:08:28.065 5c08 Delete type=0 #12
+2025/05/27-16:08:28.065 5c08 Compacting 4@0 + 1@1 files
+2025/05/27-16:08:28.070 5c08 Generated table #16@0: 12 keys, 2203 bytes
+2025/05/27-16:08:28.070 5c08 Compacted 4@0 + 1@1 files => 2203 bytes
+2025/05/27-16:08:28.072 5c08 compacted to: files[ 0 1 1 0 0 0 0 ]
+2025/05/27-16:08:28.073 5c08 Delete type=2 #7
+2025/05/27-16:08:28.073 5c08 Delete type=2 #9
+2025/05/27-16:08:28.073 5c08 Delete type=2 #11
+2025/05/27-16:08:28.073 5c08 Delete type=2 #13
+2025/05/27-16:08:28.073 5c08 Delete type=2 #15
