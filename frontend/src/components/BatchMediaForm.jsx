@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import styles from "./BatchMediaForm.module.css";
+import { sendFilePersonalized } from "../api";
 
-export default function BatchFileSendForm() {
+export default function BatchFileSendForm({ sessionId }) {
   const [contactsText, setContactsText] = useState("");
-  const [message, setMessage] = useState(""); // agora é opcional
+  const [message, setMessage] = useState("");
   const [file, setFile] = useState(null);
-  const [delay, setDelay] = useState("0");
+  const [delayMin, setDelayMin] = useState(2);
+  const [delayMax, setDelayMax] = useState(3);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
 
-  // Parseia linha a linha: 5511999999999,João
   const parseContacts = (text) => {
     const lines = text.split("\n");
     return lines
@@ -35,8 +36,16 @@ export default function BatchFileSendForm() {
       return;
     }
 
-    if (isNaN(Number(delay)) || Number(delay) < 0) {
-      alert("Delay deve ser um número positivo ou zero");
+    if (
+      isNaN(delayMin) ||
+      isNaN(delayMax) ||
+      delayMin < 0 ||
+      delayMax < 0 ||
+      delayMin > delayMax
+    ) {
+      alert(
+        "Delay mínimo e máximo devem ser números válidos. Mínimo deve ser menor ou igual ao máximo."
+      );
       return;
     }
 
@@ -50,23 +59,18 @@ export default function BatchFileSendForm() {
       const formData = new FormData();
       formData.append("file", file);
       formData.append("contacts", JSON.stringify(contacts));
-      formData.append("message", message); // opcional
-      formData.append("delay", delay);
+      formData.append("message", message);
+      formData.append("delayMin", delayMin.toString());
+      formData.append("delayMax", delayMax.toString());
 
-      const response = await fetch("http://localhost:3000/send-file-personalized", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await sendFilePersonalized(formData, sessionId);
+      const json = response.data;
 
-      const json = await response.json();
-
-      if (response.ok) {
-        setResult(json.resultados || json);
-      } else {
-        setError(json.error || "Erro desconhecido");
-      }
+      setResult(json.resultados || json);
     } catch (err) {
-      setError(err.message || "Erro na requisição");
+      setError(
+        err.response?.data?.error || err.message || "Erro na requisição"
+      );
     } finally {
       setLoading(false);
     }
@@ -89,7 +93,9 @@ export default function BatchFileSendForm() {
         </div>
 
         <div className={styles.item}>
-          <label>Mensagem (opcional — use {"{name}"} para inserir o nome):</label>
+          <label>
+            Mensagem (opcional — use {"{name}"} para inserir o nome):
+          </label>
           <textarea
             rows={3}
             className={styles.input}
@@ -109,16 +115,27 @@ export default function BatchFileSendForm() {
         </div>
 
         <div className={styles.item}>
-          <label>Delay entre mensagens (em minutos):</label>
-          <input
-            type="number"
-            min="0"
-            step="0.1"
-            className={styles.input}
-            value={delay}
-            onChange={(e) => setDelay(e.target.value)}
-            placeholder="Ex: 1.5"
-          />
+          <label>Delay entre mensagens (minutos):</label>
+          <div style={{ display: "flex", gap: "1rem" }}>
+            <input
+              type="number"
+              min="0"
+              step="0.1"
+              className={styles.input}
+              placeholder="Mínimo"
+              value={delayMin}
+              onChange={(e) => setDelayMin(parseFloat(e.target.value) || 0)}
+            />
+            <input
+              type="number"
+              min="0"
+              step="0.1"
+              className={styles.input}
+              placeholder="Máximo"
+              value={delayMax}
+              onChange={(e) => setDelayMax(parseFloat(e.target.value) || 0)}
+            />
+          </div>
         </div>
 
         <div className={styles.buttons}>
@@ -135,17 +152,19 @@ export default function BatchFileSendForm() {
       )}
 
       {result && (
-        <div style={{
-          color: "green",
-          marginTop: 10,
-          whiteSpace: "pre-wrap",
-          backgroundColor: "#e6ffe6",
-          padding: "10px",
-          borderRadius: "5px",
-          fontFamily: "monospace",
-          maxHeight: "200px",
-          overflowY: "auto"
-        }}>
+        <div
+          style={{
+            color: "green",
+            marginTop: 10,
+            whiteSpace: "pre-wrap",
+            backgroundColor: "#e6ffe6",
+            padding: "10px",
+            borderRadius: "5px",
+            fontFamily: "monospace",
+            maxHeight: "200px",
+            overflowY: "auto",
+          }}
+        >
           <b>Resultado:</b>
           <pre>{JSON.stringify(result, null, 2)}</pre>
         </div>

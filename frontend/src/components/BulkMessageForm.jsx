@@ -1,24 +1,22 @@
 import { useEffect, useState } from "react";
-import api from "../api";
+import { sendBatchMessages } from "../api";
 import styles from "./BulkMessageForm.module.css";
-import axios from 'axios';
 
-
-export default function BulkMessageForm() {
+export default function BulkMessageForm({ sessionId }) {
   const [contactsText, setContactsText] = useState("");
   const [contacts, setContacts] = useState([]);
   const [message, setMessage] = useState("");
-  const [delay, setDelay] = useState(0);
-  const [labels, setLabels] = useState([]);
-  const [selectedLabel, setSelectedLabel] = useState("");
+  const [minDelay, setMinDelay] = useState(2);
+  const [maxDelay, setMaxDelay] = useState(3);
+
+  // const [labels, setLabels] = useState([]);
+  // const [selectedLabel, setSelectedLabel] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  
-  
-
 
   useEffect(() => {
-    // Carrega etiquetas ao montar
+    // Carrega etiquetas ao montar - desabilitado para melhoria futura
+    /*
     const fetchLabels = async () => {
       try {
         const res = await api.get("/labels");
@@ -29,6 +27,7 @@ export default function BulkMessageForm() {
     };
 
     fetchLabels();
+    */
   }, []);
 
   const parseContacts = (text) => {
@@ -65,8 +64,8 @@ export default function BulkMessageForm() {
     e.preventDefault();
     setError("");
 
-    if (!contacts.length && !selectedLabel) {
-      setError("Informe contatos ou selecione uma etiqueta.");
+    if (!contacts.length /* && !selectedLabel */) {
+      setError("Informe contatos." /* ou selecione uma etiqueta. */);
       return;
     }
 
@@ -75,6 +74,7 @@ export default function BulkMessageForm() {
       return;
     }
 
+    /*
     if (contacts.length && selectedLabel) {
       const confirmSend = window.confirm(
         "Você selecionou contatos e uma etiqueta. A mensagem será enviada apenas para os contatos informados no campo de contatos. Deseja continuar?"
@@ -83,12 +83,13 @@ export default function BulkMessageForm() {
         return;
       }
     }
+    */
 
     setLoading(true);
 
     try {
+      /*
       if (selectedLabel && !contacts.length) {
-        // Enviar somente para etiqueta
         const res = await api.post(`/labels/${selectedLabel}/send-batch`, {
           message,
           delay: Number(delay),
@@ -96,42 +97,50 @@ export default function BulkMessageForm() {
         console.log(res.data);
         alert("Mensagens enviadas por etiqueta com sucesso!");
       } else {
-        // Enviar para contatos preenchidos diretamente
-        const messages = buildMessages();
-        const res = await api.post("/send-batch", {
+      */
+      const messages = buildMessages();
+      const res = await sendBatchMessages(
+        {
           messages,
-          delay: Number(delay),
-        });
-        console.log(res.data);
-        alert("Mensagens enviadas com sucesso!");
+          delayMin: Number(minDelay),
+          delayMax: Number(maxDelay),
+        },
+        sessionId // Aqui é o sessionId repassado pela prop
+      );
+      console.log(res.data);
+      alert("Mensagens enviadas com sucesso!");
+      /*
       }
+      */
 
-      // Limpar campos após envio
       setContactsText("");
       setContacts([]);
       setMessage("");
-      setDelay(0);
-      setSelectedLabel("");
+      setMinDelay(0);
+      setMaxDelay(0);
+      // setSelectedLabel("");
     } catch (err) {
-      setError(err.response?.data?.error || err.message || "Erro ao enviar mensagens");
+      setError(
+        err.response?.data?.error || err.message || "Erro ao enviar mensagens"
+      );
     } finally {
       setLoading(false);
     }
   };
 
+  /*
   const handleAddToLabel = async () => {
     if (!selectedLabel || !contacts.length) {
       setError("Informe contatos e selecione uma etiqueta.");
       return;
-    } 
+    }
 
     try {
       setLoading(true);
 
-await axios.post(`http://localhost:3000/labels/${selectedLabel}/associate`, {
-  contacts: contacts,
-});
-
+      await api.post(`/labels/${selectedLabel}/associate`, {
+        contacts,
+      });
 
       alert("Contatos adicionados à etiqueta com sucesso!");
     } catch (err) {
@@ -141,6 +150,7 @@ await axios.post(`http://localhost:3000/labels/${selectedLabel}/associate`, {
       setLoading(false);
     }
   };
+  */
 
   return (
     <div className={styles.container}>
@@ -162,6 +172,7 @@ await axios.post(`http://localhost:3000/labels/${selectedLabel}/associate`, {
           </div>
         </div>
 
+        {/*
         <div className={styles.item}>
           <label>Etiqueta (opcional):</label>
           <select
@@ -178,6 +189,7 @@ await axios.post(`http://localhost:3000/labels/${selectedLabel}/associate`, {
             ))}
           </select>
         </div>
+        */}
 
         <div className={styles.item}>
           <label>Mensagem (use {"{name}"} para inserir o nome):</label>
@@ -192,17 +204,29 @@ await axios.post(`http://localhost:3000/labels/${selectedLabel}/associate`, {
         </div>
 
         <div className={styles.item}>
-          <label>Delay entre mensagens (em minutos):</label>
-          <input
-            type="number"
-            min="0"
-            step="0.1"
-            className={styles.input}
-            value={delay}
-            onChange={(e) => setDelay(parseFloat(e.target.value) || 0)}
-            placeholder="Ex: 1.5"
-            disabled={loading}
-          />
+          <label>Delay entre mensagens em minutos:</label>
+          <div style={{ display: "flex", gap: "1rem" }}>
+            <input
+              type="number"
+              min="0"
+              step="0.1"
+              className={styles.input}
+              value={minDelay}
+              onChange={(e) => setMinDelay(parseFloat(e.target.value) || 0)}
+              placeholder="Mínimo (min)"
+              disabled={loading}
+            />
+            <input
+              type="number"
+              min="0"
+              step="0.1"
+              className={styles.input}
+              value={maxDelay}
+              onChange={(e) => setMaxDelay(parseFloat(e.target.value) || 0)}
+              placeholder="Máximo (min)"
+              disabled={loading}
+            />
+          </div>
         </div>
 
         <div className={styles.buttons}>
@@ -210,6 +234,7 @@ await axios.post(`http://localhost:3000/labels/${selectedLabel}/associate`, {
             {loading ? "Enviando..." : "Enviar"}
           </button>
 
+          {/* Comentado para futura melhoria
           {selectedLabel && contacts.length > 0 && (
             <button
               className={styles.secondaryButton}
@@ -221,6 +246,7 @@ await axios.post(`http://localhost:3000/labels/${selectedLabel}/associate`, {
               Adicionar contatos à etiqueta
             </button>
           )}
+          */}
         </div>
       </form>
 
