@@ -1,7 +1,7 @@
 {
   "name": "wppconnect-api",
   "version": "1.0.0",
-  "main": "backend/services/server.js",
+  "main": "server.js",
   "scripts": {
     "start": "node backend/services/server.js"
   },
