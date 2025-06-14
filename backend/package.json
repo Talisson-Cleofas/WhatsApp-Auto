@@ -1,9 +1,9 @@
 {
   "name": "wppconnect-api",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "backend/services/server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node backend/services/server.js"
   },
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
