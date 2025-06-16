@@ -1,8 +1,13 @@
 // backend/services/server.js
 const express = require("express");
-const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 3000;
+const cors = require('cors');
+app.use(cors());
+app.use(cors({
+  origin: 'https://marshall-whatsapp-auto.onrender.com'
+}));
+
 
 const {
   initSession,
