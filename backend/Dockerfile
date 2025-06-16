@@ -1,17 +1,17 @@
-# Usa imagem base do Node com Chromium incluído
-FROM zenika/node:20-chrome
+# Usa imagem oficial com Puppeteer + Chromium
+FROM ghcr.io/puppeteer/puppeteer:latest
 
-# Cria diretório do app
+# Define diretório de trabalho
 WORKDIR /app
 
-# Copia os arquivos do projeto
+# Copia todos os arquivos
 COPY . .
 
-# Instala dependências
+# Instala as dependências
 RUN npm install
 
-# Expõe a porta (ajuste se seu app usa outra porta)
+# Exponha a porta usada pelo seu app
 EXPOSE 3000
 
-# Inicia a aplicação
+# Comando para iniciar a aplicação
 CMD ["npm", "start"]
