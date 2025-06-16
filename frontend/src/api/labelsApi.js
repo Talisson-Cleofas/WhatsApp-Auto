@@ -1,5 +1,5 @@
 // src/api/labelsApi.js
-const API_BASE_URL = "http://localhost:3000"; // ou sua URL real do backend
+const API_BASE_URL = "https://marshall-whatsapp-auto.onrender.com"; // ou sua URL real do backend
 
 export async function getLabels() {
   const response = await fetch(`${API_BASE_URL}/labels`);
