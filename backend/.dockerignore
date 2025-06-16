@@ -1,10 +1,17 @@
+# Ignora dependências e arquivos temporários
 node_modules
 npm-debug.log
+
+# Ignora variáveis sensíveis
 .env
-node_modules
-npm-debug.log
+
+# Ignora arquivos desnecessários para produção
 *.md
 .DS_Store
+
+# Ignora Git
 .git
 .gitignore
+
+# Ignora testes
 tests
