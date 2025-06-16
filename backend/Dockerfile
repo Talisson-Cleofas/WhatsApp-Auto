@@ -1,23 +1,20 @@
-FROM ghcr.io/puppeteer/puppeteer:latest
+# Imagem base otimizada com Chromium e Puppeteer
+FROM ghcr.io/puppeteer/puppeteer:20.10.0
 
-# Define diretório de trabalho
+# Define o diretório de trabalho
 WORKDIR /app
 
-# Copia arquivos como root temporariamente
-USER root
+# Copia apenas os arquivos necessários
+COPY package*.json ./
+
+# Instala apenas dependências de produção
+RUN npm ci --omit=dev
+
+# Copia o restante da aplicação
 COPY . .
 
-# Ajusta permissões da pasta para o usuário padrão do container
-RUN chown -R pptruser:pptruser /app
-
-# Volta para o usuário seguro
-USER pptruser
-
-# Instala dependências
-RUN npm install
-
-# Exponha a porta usada pelo seu app
+# Expõe a porta da API
 EXPOSE 3000
 
-# Comando para iniciar o app
+# Inicia a aplicação
 CMD ["npm", "start"]
