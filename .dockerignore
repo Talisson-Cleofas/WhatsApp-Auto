@@ -1,19 +1,34 @@
-# Ignorar node_modules e arquivos inúteis
+# Ignorar node_modules e dependências
 node_modules
 **/node_modules
-**/.cache
-**/.next
-**/.vite
-*.log
-.dockerignore
-Dockerfile
 
-# Ignorar arquivos temporários e IDEs
+# Ignorar arquivos temporários
+*.log
+*.tmp
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignorar builds locais
+**/.next
+**/.cache
+**/dist
+**/.vite
+build
+coverage
+
+# Ignorar controle de versão e editores
+.git
+.gitignore
 .vscode
 .idea
 .DS_Store
 
-# Ignorar tudo fora de backend e frontend
+# Ignorar arquivos de sistema e docker
+Dockerfile
+.dockerignore
+
+# Ignorar tudo da raiz que não seja backend ou frontend
 /*
 !backend/
 !frontend/
