@@ -7,27 +7,30 @@ WORKDIR /app/frontend
 # Copia o frontend
 COPY frontend/ ./
 
-# Instala dependências e builda o frontend
+# 🔥 Define a variável de ambiente de build para o Vite
+ENV VITE_API_BASE_URL=https://marshall-whatsapp-auto-production.up.railway.app/api
+
+# Instala dependências e gera o build
 RUN npm install --omit=dev && npm run build
 
-# Etapa 2: Build do backend com os arquivos do frontend
+# Etapa 2: Backend + frontend buildado
 FROM node:20-slim AS backend
 
 # Diretório do backend
 WORKDIR /app
 
-# Copia apenas o backend
+# Copia o backend
 COPY backend/ ./backend
 
-# Copia o build do frontend para o backend servir via "public/"
+# Copia o build do frontend para o backend servir via "public"
 COPY --from=frontend-builder /app/frontend/dist ./backend/public
 
-# Instala somente as dependências de produção do backend
+# Instala dependências do backend
 WORKDIR /app/backend
 RUN npm install --omit=dev && npm cache clean --force
 
-# Expõe a porta usada pelo backend
+# Exponha a porta usada pelo backend (ajuste conforme necessário)
 EXPOSE 3000
 
-# Comando para rodar o backend
+# Comando de execução do servidor
 CMD ["node", "services/server.js"]
