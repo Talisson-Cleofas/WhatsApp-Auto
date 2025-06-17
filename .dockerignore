@@ -1,36 +1,42 @@
-# Ignora variáveis sensíveis
+# Variáveis de ambiente
 .env
 .env.*
 !.env.example
 
-# Ignora arquivos desnecessários para produção
-*.md
-.DS_Store
+# Arquivos de log
+*.log
+npm-debug.log
+yarn-error.log
 
-# Ignora Git
+# Git
 .git
 .gitignore
 
-# Ignora testes
+# Documentação e arquivos do sistema
+*.md
+.DS_Store
+
+# IDEs e editores
+.vscode/
+.idea/
+
+# Testes e cobertura
 tests/
 __tests__/
 coverage/
 
-# Ignora tudo da raiz que não seja o backend ou frontend
+# Ignora tudo da raiz que não seja backend ou frontend
 /*
 !backend/
 !frontend/
 
-# Ignorar dependências locais e arquivos de build
+# Ignora dependências locais e arquivos de build
 **/node_modules/
 **/dist/
 **/.next/
 **/.vite/
 **/.cache/
 
-# Ignorar arquivos ocultos e editores
-*.log
-npm-debug.log
-yarn-error.log
-.vscode/
-.idea/
+# Arquivos relacionados ao Docker (não devem ir para o build final)
+Dockerfile
+.dockerignore
