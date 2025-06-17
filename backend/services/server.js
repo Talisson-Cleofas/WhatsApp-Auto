@@ -1,30 +1,26 @@
-// backend/services/server.js
 const express = require("express");
+const path = require("path");
+const cors = require("cors");
 const app = express();
-const PORT = process.env.PORT || 3000;
-const cors = require('cors');
-app.use(cors());
+
+const PORT = process.env.PORT || 8080;
+
+// CORS
 app.use(cors({
-  origin: 'https://marshall-whatsapp-auto.onrender.com'
+  origin: 'https://marshall-whatsapp-auto.onrender.com',
 }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-
+// === Sessão WPPConnect ===
 const {
   initSession,
   getSavedSessions,
 } = require("../wppconnect/sessionManager");
 
-const path = require("path");
-
-// Middlewares globais
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// Objeto para guardar QR codes ativos
 const qrCodes = {};
 
-// Inicializa sessão com QR Code e handlers
+// Inicializa sessão com QR
 async function initSessionWithQR(sessionId) {
   return initSession(sessionId, {
     headless: true,
@@ -42,7 +38,7 @@ async function initSessionWithQR(sessionId) {
   });
 }
 
-// Restaura sessões anteriores ao subir o servidor
+// Restaura sessões salvas
 async function restoreSessions() {
   const sessions = getSavedSessions();
   for (const sessionId of sessions) {
@@ -55,7 +51,7 @@ async function restoreSessions() {
   }
 }
 
-// Rota para obter QR code da sessão
+// === Rotas de API ===
 app.get("/api/session/:sessionId/qr", (req, res) => {
   const { sessionId } = req.params;
   const qr = qrCodes[sessionId];
@@ -68,7 +64,6 @@ app.get("/api/session/:sessionId/qr", (req, res) => {
   }
 });
 
-// Rotas organizadas
 app.use("/api/session", require("../routes/session"));
 app.use("/api/messages", require("../routes/messages"));
 app.use("/api/media", require("../routes/media"));
@@ -76,15 +71,22 @@ app.use("/api/labels", require("../routes/labels"));
 app.use("/api/status", require("../routes/status"));
 app.use("/api/file-bulk", require("../routes/fileBulk"));
 
-// Rota raiz
-app.get("/", (req, res) => res.send("🚀 Servidor rodando!"));
+// === Servir frontend buildado (Vite) ===
+// Garante que o frontend estático seja servido
+app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 
+// Suporte para rotas do React Router
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
+});
+
+// === Iniciar servidor ===
 app.listen(PORT, async () => {
   console.log(`🟢 Servidor rodando na porta ${PORT}`);
   await restoreSessions();
 });
 
-// Exporta para uso externo (ex: rotas de sessão)
+// Exporta QR e função de sessão
 module.exports = {
   initSessionWithQR,
   qrCodes,
