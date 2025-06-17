@@ -1,0 +1,36 @@
+# Ignora variáveis sensíveis
+.env
+.env.*
+!.env.example
+
+# Ignora arquivos desnecessários para produção
+*.md
+.DS_Store
+
+# Ignora Git
+.git
+.gitignore
+
+# Ignora testes
+tests/
+__tests__/
+coverage/
+
+# Ignora tudo da raiz que não seja o backend ou frontend
+/*
+!backend/
+!frontend/
+
+# Ignorar dependências locais e arquivos de build
+**/node_modules/
+**/dist/
+**/.next/
+**/.vite/
+**/.cache/
+
+# Ignorar arquivos ocultos e editores
+*.log
+npm-debug.log
+yarn-error.log
+.vscode/
+.idea/
