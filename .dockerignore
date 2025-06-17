@@ -25,18 +25,13 @@ tests/
 __tests__/
 coverage/
 
-# Ignora tudo da raiz que não seja backend ou frontend
-/*
-!backend/
-!frontend/
-
-# Ignora dependências locais e arquivos de build
+# Dependências e arquivos temporários de build
 **/node_modules/
 **/dist/
 **/.next/
 **/.vite/
 **/.cache/
 
-# Arquivos relacionados ao Docker (não devem ir para o build final)
+# Docker
 Dockerfile
 .dockerignore
