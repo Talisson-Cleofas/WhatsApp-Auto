@@ -1,28 +1,19 @@
-# Etapa 1: Build do frontend
-FROM node:20-alpine AS frontend-builder
+# Ignorar node_modules e arquivos inúteis
+node_modules
+**/node_modules
+**/.cache
+**/.next
+**/.vite
+*.log
+.dockerignore
+Dockerfile
 
-WORKDIR /app
-COPY frontend/ ./frontend
-WORKDIR /app/frontend
-RUN npm ci && npm run build
+# Ignorar arquivos temporários e IDEs
+.vscode
+.idea
+.DS_Store
 
-# Etapa 2: Backend com build do frontend embutido
-FROM node:20-alpine AS production
-
-WORKDIR /app
-
-# Copia apenas o necessário
-COPY backend/package*.json ./backend/
-WORKDIR /app/backend
-RUN npm ci --omit=dev
-
-# Copia código do backend
-COPY backend/ ./backend
-# Copia build do frontend
-COPY --from=frontend-builder /app/frontend/dist ./backend/public
-
-# Porta
-EXPOSE 3000
-
-# Comando de inicialização
-CMD ["node", "services/server.js"]
+# Ignorar tudo fora de backend e frontend
+/*
+!backend/
+!frontend/
