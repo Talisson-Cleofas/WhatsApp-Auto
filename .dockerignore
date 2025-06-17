@@ -1,37 +1,28 @@
-# Variáveis de ambiente
-.env
-.env.*
-!.env.example
+# Etapa 1: Build do frontend
+FROM node:20-alpine AS frontend-builder
 
-# Arquivos de log
-*.log
-npm-debug.log
-yarn-error.log
+WORKDIR /app
+COPY frontend/ ./frontend
+WORKDIR /app/frontend
+RUN npm ci && npm run build
 
-# Git
-.git
-.gitignore
+# Etapa 2: Backend com build do frontend embutido
+FROM node:20-alpine AS production
 
-# Documentação e arquivos do sistema
-*.md
-.DS_Store
+WORKDIR /app
 
-# IDEs e editores
-.vscode/
-.idea/
+# Copia apenas o necessário
+COPY backend/package*.json ./backend/
+WORKDIR /app/backend
+RUN npm ci --omit=dev
 
-# Testes e cobertura
-tests/
-__tests__/
-coverage/
+# Copia código do backend
+COPY backend/ ./backend
+# Copia build do frontend
+COPY --from=frontend-builder /app/frontend/dist ./backend/public
 
-# Dependências e arquivos temporários de build
-**/node_modules/
-**/dist/
-**/.next/
-**/.vite/
-**/.cache/
+# Porta
+EXPOSE 3000
 
-# Docker
-Dockerfile
-.dockerignore
+# Comando de inicialização
+CMD ["node", "services/server.js"]
