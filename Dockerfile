@@ -29,7 +29,7 @@ COPY backend/ ./
 COPY --from=frontend-builder /app/frontend/dist ./public
 
 # Exponha a porta usada pelo backend
-EXPOSE 3000
+EXPOSE 8080
 
 # Comando para rodar o servidor
 CMD ["node", "services/server.js"]
