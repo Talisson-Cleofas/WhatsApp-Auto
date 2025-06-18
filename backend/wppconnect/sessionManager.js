@@ -81,13 +81,14 @@ async function initSession(sessionId, options = {}) {
     autoClose: false,
     useChrome: true,
     puppeteerOptions: {
-      args: [
-        "--no-sandbox",
-        "--disable-setuid-sandbox",
-        "--disable-dev-shm-usage",
-        "--disable-gpu",
-      ],
-    },
+  executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/chromium',
+  args: [
+    '--no-sandbox',
+    '--disable-setuid-sandbox',
+    '--disable-dev-shm-usage',
+    '--disable-gpu',
+  ],
+},
     disableSpins: true,
     disableWelcome: true,
     logQR: false,
