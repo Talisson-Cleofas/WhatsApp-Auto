@@ -80,11 +80,22 @@ web_modules/
 # IGNORA TUDO QUE NÃO SEJA backend/ E frontend/
 # ----------------------------
 
-# Ignorar tudo exceto backend e frontend
-*
+# Ignorar tudo por padrão
+**
 
+# Permitir backend e frontend
 !backend/
 !backend/**
-
 !frontend/
 !frontend/**
+
+# Permitir arquivos necessários na raiz (Dockerfile, .dockerignore, etc.)
+!Dockerfile
+!.dockerignore
+!package.json
+!package-lock.json
+!vite.config.js
+!index.html
+!nginx.conf
+!eslint.config.js
+!app.env
