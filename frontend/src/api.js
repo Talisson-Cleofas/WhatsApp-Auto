@@ -30,11 +30,10 @@ export async function startSession(sessionId) {
 
 export async function getQrCode(sessionId) {
   try {
-    const response = await api.get("/status/qr", { params: { sessionId } });
+    const response = await api.get(`/session/qr/${sessionId}`);
     return response.data;
   } catch (error) {
     if (error.response?.status === 404) {
-      // QR ainda não disponível
       return { qr: null };
     }
     throw error;
