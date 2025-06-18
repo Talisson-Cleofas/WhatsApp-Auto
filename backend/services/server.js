@@ -23,7 +23,7 @@ const qrCodes = {};
 // Inicializa sessão com QR
 async function initSessionWithQR(sessionId) {
   return initSession(sessionId, {
-    headless: true,
+    headless: false,
     qrTimeout: 0,
     catchQR: (qrCode, asciiQR) => {
       console.log(`📸 QR code recebido para sessão ${sessionId}`);
