@@ -27,6 +27,7 @@ async function initSessionWithQR(sessionId) {
   return initSession(sessionId, {
     headless: false,
     qrTimeout: 0,
+    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
     catchQR: (qrCode, asciiQR) => {
       console.log(`📸 QR code recebido para sessão ${sessionId}`);
       qrCodes[sessionId] = qrCode;
