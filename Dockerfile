@@ -15,7 +15,7 @@ RUN npm run build
 # Etapa 2: Backend + frontend buildado
 FROM node:20-slim AS backend
 
-# Instala Chromium e dependências necessárias para Puppeteer
+# Instala Chromium corretamente (versão Debian, não SNAP)
 RUN apt-get update && apt-get install -y \
     chromium \
     libnss3 \
@@ -36,6 +36,7 @@ RUN apt-get update && apt-get install -y \
     libxtst6 \
     --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
+# ⚠️ Usar o binário correto
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 
 WORKDIR /app/backend
