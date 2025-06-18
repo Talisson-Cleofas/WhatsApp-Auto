@@ -80,6 +80,11 @@ web_modules/
 # IGNORA TUDO QUE NÃO SEJA backend/ E frontend/
 # ----------------------------
 
-/*
-!/backend/
-!/frontend/
+# Ignorar tudo exceto backend e frontend
+*
+
+!backend/
+!backend/**
+
+!frontend/
+!frontend/**
