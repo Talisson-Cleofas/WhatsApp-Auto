@@ -4,6 +4,8 @@ const cors = require("cors");
 const app = express();
 
 const PORT = process.env.PORT || 8080;
+console.log('🛠️  services/server.js foi iniciado');
+
 
 // CORS
 app.use(cors({
