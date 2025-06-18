@@ -25,9 +25,12 @@ const qrCodes = {};
 // Inicializa sessão com QR
 async function initSessionWithQR(sessionId) {
   return initSession(sessionId, {
-    headless: false,
+    headless: true,
     qrTimeout: 0,
-     executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/chromium',
+         puppeteerOptions: {
+      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || "/usr/bin/chromium",
+      args: ['--no-sandbox', '--disable-setuid-sandbox'], // importante em servidores
+    },
     catchQR: (qrCode, asciiQR) => {
       console.log(`📸 QR code recebido para sessão ${sessionId}`);
       qrCodes[sessionId] = qrCode;
